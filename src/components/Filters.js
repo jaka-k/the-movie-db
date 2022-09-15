@@ -1,27 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import requests from '../utils/requests';
 
+const style = {
+  filtersContainer: 'rounded-md border bg-white border-gray-200 drop-shadow-sm',
+  filtersTitle: 'flex justify-between py-1',
+  filtersTitle__text: 'text-sm font-semibold p-2',
+  filtersTitle__arrow: 'text-sm font-semibold p-2 flex items-center',
+  filtersTitle__arrow__active: 'text-sm font-semibold p-2 flex items-center rotate-90',
+  filtersTitle__arrowIcon: 'h-4 w-4',
+  genreContainer: 'p-2',
+  genreTitle: 'text-sm font-light',
+  genreButtonsContainer: 'flex flex-wrap py-2',
+  genre__button: 'my-1 mx-2 px-2 py-1 border border-slate-500 rounded-2xl text-xs font-normal hover:bg-[#01b4e4] hover:text-white hover:border-[#01b4e4] active:bg-[#01b4e4] active:text-white active:border-[#01b4e4]',
+};
+
 function Filters() {
+  const [filterButton, setFilterButton] = useState(false);
   let navigate = useNavigate();
 
+  const clickHandler = () => {
+    if (filterButton) {
+      setFilterButton(false);
+    } else {
+      setFilterButton(true);
+    }
+  };
 
   return (
-    <div className="rounded-md border bg-white border-gray-200 drop-shadow-sm">
-      <div className="flex justify-between ">
-        <h2 className="text-sm font-semibold p-2">Filters</h2>
-        <h2 className="text-sm font-semibold p-2">1</h2>
+    <div className={style.filtersContainer}>
+      <div className={style.filtersTitle}>
+        <h2 className={style.filtersTitle__text}>Filters</h2>
+        <div
+          onClick={() => clickHandler()}
+          className={
+            filterButton
+              ? style.filtersTitle__arrow__active
+              : style.filtersTitle__arrow
+          }>
+          <img
+            className={style.filtersTitle__arrowIcon}
+            src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-224-chevron-right-d1f88a6c15e68190c3b47e1ee4f39fe47f4b69f4966ca7c250c2e14cfa689a04.svg"
+            alt="arrow"
+          />
+        </div>
       </div>
-      <div className="flex flex-wrap">
-        {requests.map(({ title, genreCode }) => (
-          <button
-            key={genreCode}
-            className="my-1 mx-2 px-2 border border-inherit rounded-2xl text-xs font-light"
-            onClick={() => navigate(`?genre=${genreCode}`)}>
-            {title}
-          </button>
-        ))}
-      </div>
+      {filterButton && (
+        <div className={style.genreContainer}>
+          <p className={style.genreTitle}>Genres</p>
+          <div className={style.genreButtonsContainer}>
+            {requests.map(({ title, genreCode }) => (
+              <button
+                key={genreCode}
+                className={style.genre__button}
+                onClick={() => navigate(`?genre=${genreCode}`)}>
+                {title}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
