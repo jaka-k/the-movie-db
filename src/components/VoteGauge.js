@@ -5,11 +5,11 @@ import { Text } from '@visx/text';
 
 const style = {
   gaugeContainer: 'bg-[#081C22] rounded-full p-1',
-  gaugeText: 'font-bold text-sm',
+  gaugeText: 'font-bold text-xs',
 };
 
 function VoteGauge({ vote }) {
-  const width = 35;
+  const width = 30;
   const half = width / 2;
   const restOfVote = 100 - vote;
 
@@ -57,7 +57,7 @@ function VoteGauge({ vote }) {
             textAnchor="middle"
             verticalAnchor="middle"
             fill="#FFF">
-            {vote}
+            {vote ? vote : 'NR'}
           </Text>
         </Group>
       </svg>

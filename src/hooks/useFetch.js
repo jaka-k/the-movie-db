@@ -19,7 +19,7 @@ function useFetch(query, pageNumber) {
     axios({
       method: 'GET',
       url: 'https://api.themoviedb.org/3/discover/movie',
-      params: { api_key: API_KEY, with_genres: query, page: pageNumber },
+      params: { api_key: API_KEY, with_genres: query.join(','), page: pageNumber },
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((response) => {

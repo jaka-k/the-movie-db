@@ -3,8 +3,8 @@ import MovieCard from './MovieCard';
 import dateConvertor from '../utils/dateUtils';
 
 const style = {
-  resultsContainer: "flex flex-wrap justify-evenly"
-}
+  resultsContainer: 'flex flex-wrap justify-evenly',
+};
 
 function Results({ data }) {
   return (
